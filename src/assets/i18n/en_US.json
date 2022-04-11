@@ -1,0 +1,129 @@
+{
+  "i18n_appName": "eNMS Registration System",
+  
+  "i18n_valid.required": "Input is required",
+  "i18n_valid.email": "Invalid email",
+
+  "i18n_btn.login": "Login",
+  "i18n_btn.logOut": "Logout",
+  "i18n_btn.submit": "Submit",
+  "i18n_btn.reset": "Reset",
+  "i18n_btn.search": "Search",
+  "i18n_btn.return": "Return",
+  "i18n_btn.operate": "Operation",
+  "i18n_btn.pass": "Approve",
+  "i18n_btn.reject": "Reject",
+  "i18n_btn.add": "Add",
+  "i18n_btn.sure": "Ok",
+  "i18n_btn.cancel": "Cancel",
+  "i18n_btn.download": "Download",
+  "i18n_btn.spread": "Collapse",
+  "i18n_btn.putAway": "Collapse",
+
+  "i18n_menu.apply": "New Registration",
+  "i18n_menu.licenseMaga": "Registration Mgmt.",
+  "i18n_menu.licenseList": "Registration List",
+
+  "i18n_license.baseInfo": "Basic Information",
+  "i18n_license.state": "Approval Status",
+  "i18n_license.email": "Applicant",
+  "i18n_license.subject": "Product Name",
+  "i18n_license.use": "Purpose",
+  "i18n_license.holder": "Customer Information",
+  "i18n_license.holderPlaceholder": "Customer (Company / Project) Name; Individual User Name",
+  "i18n_license.equipmentDescription": "Types of Equipments Involved",
+  "i18n_license.applyDate": "Apply Date",
+  "i18n_license.notBefore": "Permission Start Date",
+  "i18n_license.notAfter1": "Permission Expiration Date",
+  "i18n_license.notAfter": "Due Date",
+  "i18n_license.permitDuration": "Permission Duration",
+  "i18n_license.quantityLimit": "Number Limits of Equivalent NEs",
+  "i18n_license.networkLimit": "Network Element Number Limit",
+  "i18n_license.sessionLimit": "Session Limits",
+  "i18n_license.controllLimit": "Controlled Function Authorization",
+  "i18n_license.info": "Remarks",
+  "i18n_license.netInfo": "NMS Information",
+  "i18n_license.ip": "IP Address",
+  "i18n_license.mac": "MAC Address",
+  "i18n_license.approver": "Approver",
+
+  "i18n_license.option.internalDev": "Internal Development",
+  "i18n_license.option.laboratoryTest": "Lab Test",
+  "i18n_license.option.userTest": "User Field Test",
+  "i18n_license.option.userTrial": "User Trial",
+  "i18n_license.option.userNetworkUse": "User Field Use",
+
+  "i18n_license.option.aWeek": "1 week",
+  "i18n_license.option.oneMonth": "1 month",
+  "i18n_license.option.twoMonths": "2 months",
+  "i18n_license.option.threeMonths": "3 months",
+  "i18n_license.option.sexMonths": "Half a year",
+  "i18n_license.option.oneYear": "1 year",
+  "i18n_license.option.twoYears": "2 years",
+  "i18n_license.option.threeYears": "3 years",
+  "i18n_license.option.permanentDays": "Permanent",
+  "i18n_license.option.customDays": "Customized days",
+
+  "i18n_license.option.netNum10": "10",
+  "i18n_license.option.netNum50": "50",
+  "i18n_license.option.netNum100": "100",
+  "i18n_license.option.netNum500": "500",
+  "i18n_license.option.netNumUnlimited": "Unlimited",
+  "i18n_license.option.customNetNum": "Customized number",
+
+  "i18n_license.option.5": "5",
+  "i18n_license.option.10": "10",
+  "i18n_license.option.50": "50",
+  "i18n_license.option.100": "100",
+  "i18n_license.option.unlimited": "Unlimited",
+  "i18n_license.option.custom": "Custom",
+
+  "i18n_license.option.licenseExpiration30": "Due Soon",
+  "i18n_license.option.licenseExpiration1": "Expired",
+  "i18n_license.option.licensePermanent": "Permanent",
+  "i18n_license.option.customLicenseExpiration": "Customized date",
+
+  "i18n_license.option.customEquipmenteType": "Customized Types",
+  
+  "i18n_license.state.success": "Approved",
+  "i18n_license.state.fail": "Rejected",
+  "i18n_license.state.pending": "Pending",
+
+  "i18n_license.approval": "Approval",
+  "i18n_license.approvalReason": "Approval Message",
+  "i18n_license.agree": "Approved",
+
+  "i18n_license.detail": "Registration Details",
+  "i18n_license.format": "format",
+
+  "i18n_pagination.total": "Total",
+  "i18n_pagination.item": "items", 
+
+  "i18n_message.emailSendValidate": "The email has been sent. Please click link in email to login.",
+  "i18n_message.formatValidate": "Incorrect format!",
+  "i18n_message.operationSuccess": "Operation successful!",
+  "i18n_message.operationFailed": "Operation failed!",
+  "i18n_message.applySuccess": "Your application has been submitted, you will be notified by email after the superior approves it.",
+  "i18n_message.approvalAgree": "The application has been approved and the applicant will be notified by email",
+  "i18n_message.approvalFail": "The application has been rejected, the applicant will be notified by email",
+
+  "i18n_unit.days": "days",
+  "i18n_unit.multiple": "sets",
+  
+
+  "i18n_btn": {
+    "login": "Login",
+    "logOut": "Log out",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "i18n_menu": {
+    "apply": "New Registration",
+    "licenseMaga": "Registration Mgmt.",
+    "licenseList": "Registration List"
+  },
+  "i18n_valid":{
+    "required": "Input is required",
+    "email": "Invalid email"
+  }
+}

@@ -1,0 +1,86 @@
+<div class="detail_head mb-20">
+  <h3 class="title">{{'i18n_license.detail' | i18n}}</h3>
+  <button nz-button [nzType]="'primary'" (click)="onReturn()" class="return">{{'i18n_btn.return' | i18n}}</button>
+</div>
+
+<h4>{{'i18n_license.baseInfo' | i18n}}</h4>
+<div [ngSwitch]="licenseDetails.state" class="detail_state mb-10">
+  {{'i18n_license.state' | i18n}} ：
+  <span class="pending" *ngSwitchCase="LicenseStatus.NOT_APPROVED">{{'i18n_license.state.pending' | i18n}}</span>
+  <span class="fail" *ngSwitchCase="LicenseStatus.FAIL">{{'i18n_license.state.fail' | i18n}}</span>
+  <span class="success" *ngSwitchCase="LicenseStatus.SUCCESS">{{'i18n_license.state.success' | i18n}}</span>
+</div>
+<nz-descriptions [nzBordered]="true">
+  <nz-descriptions-item nzTitle="{{'i18n_license.email' | i18n}}">{{licenseDetails.email}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.holder' | i18n}}">{{licenseDetails.holder}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.subject' | i18n}}">{{licenseDetails.subject}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.quantityLimit' | i18n}}"
+    *ngIf="licenseDetails.quantityLimit == NetworkLimit.NO_LIMIT; else networkNum">
+    {{'i18n_license.option.netNumUnlimited' | i18n}}
+  </nz-descriptions-item>
+  <ng-template #networkNum>
+    <nz-descriptions-item nzTitle="{{'i18n_license.quantityLimit' | i18n}}">
+      {{licenseDetails.quantityLimit}}
+    </nz-descriptions-item>
+  </ng-template>
+  <nz-descriptions-item nzTitle="{{'i18n_license.sessionLimit' | i18n}}"
+    *ngIf="licenseDetails.sessionLimit == SessionLimit.NO_LIMIT; else sessionNum">
+    {{'i18n_license.option.unlimited' | i18n}}
+  </nz-descriptions-item>
+  <ng-template #sessionNum>
+    <nz-descriptions-item nzTitle="{{'i18n_license.sessionLimit' | i18n}}">
+      {{licenseDetails.sessionLimit}}
+    </nz-descriptions-item>
+  </ng-template>
+  <nz-descriptions-item nzTitle="{{'i18n_license.equipmentDescription' | i18n}}">
+    {{licenseDetails.equipmentDescription}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.applyDate' | i18n}}">{{licenseDetails.applyDate | date:'yyyy/MM/dd'}}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.notBefore' | i18n}}">{{licenseDetails.notBefore | date:'yyyy/MM/dd'}}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.notAfter' | i18n}}">{{licenseDetails.notAfter | date:'yyyy/MM/dd'}}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.use' | i18n}}" [ngSwitch]="licenseDetails.use">
+    <span *ngSwitchCase="LicensePurpose.INTERNAL_DEV">{{'i18n_license.option.internalDev' | i18n}}</span>
+    <span *ngSwitchCase="LicensePurpose.LABORATORY_TEST">{{'i18n_license.option.laboratoryTest' | i18n}}</span>
+    <span *ngSwitchCase="LicensePurpose.USER_FIELD_TEST">{{'i18n_license.option.userTest' | i18n}}</span>
+    <span *ngSwitchCase="LicensePurpose.USER_TRIAL">{{'i18n_license.option.userTrial' | i18n}}</span>
+    <span *ngSwitchCase="LicensePurpose.CURRENT_NETWORK_USE_">{{'i18n_license.option.userNetworkUse' | i18n}}</span>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.controllLimit' | i18n}}">{{licenseDetails.controlledName && licenseDetails.controlledName.join(',')}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="{{'i18n_license.info' | i18n}}">{{licenseDetails.info}}</nz-descriptions-item>
+  <ng-container *ngIf="isManager==='true'">
+    <nz-descriptions-item nzTitle="{{'i18n_license.approver' | i18n}}">{{licenseDetails.approver}}
+    </nz-descriptions-item>
+  </ng-container>
+  <nz-descriptions-item nzTitle="{{'i18n_license.approvalReason' | i18n}}">{{licenseDetails.approvalComment}}
+  </nz-descriptions-item>
+</nz-descriptions>
+
+<h4>{{'i18n_license.netInfo' | i18n}}</h4>
+<nz-table [nzData]="licenseDetails.extra" [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th>{{'i18n_license.ip' | i18n}}</th>
+      <th>{{'i18n_license.mac' | i18n}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of licenseDetails.extra">
+      <td>{{item.ip}}</td>
+      <td>{{item.mac}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div class="operate mt-20">
+  <ng-container *ngIf="isManager==='true'">
+    <button *ngIf="licenseDetails.state==LicenseStatus.NOT_APPROVED" nz-button [nzType]="'primary'"
+      (click)="handleApproval()">{{'i18n_license.approval' | i18n}}</button>
+  </ng-container>
+  <button *ngIf="licenseDetails.state==LicenseStatus.SUCCESS" nz-button [nzType]="'primary'"
+    (click)="handleDownload()">{{'i18n_btn.download' | i18n}}</button>
+</div>
+
+<app-license-approval (onOk)="handleOk()" (onCancel)="handleCancel()" [isVisible]="isVisible"
+  [approvalParams]='approvalParams'></app-license-approval>

@@ -1,0 +1,20 @@
+<!-- <div [formGroup]="myGroup">
+    <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.permitDuration' | i18n}}</nz-form-label> -->
+    <nz-form-control [nzSpan]="11" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+        <nz-select [formControlName]="name" nzPlaceHolder="{{'i18n_license.permitDuration' | i18n}}"
+            (ngModelChange)="handleDurationChange($event)">
+            <nz-option *ngFor="let item of selectList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+            </nz-option>
+        </nz-select>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="4" *ngIf="showCustom" [nzErrorTip]="validateNum">
+        <input type='text' nz-input [formControlName]="customName" (ngModelChange)="handleInputChange($event)" />
+    </nz-form-control>
+    <ng-template #validateNum let-control>
+        <ng-container *ngIf="control.hasError('int')">
+            {{'i18n_message.formatValidate' | i18n}}</ng-container>
+        <ng-container *ngIf="control.hasError('required')">{{'i18n_valid.required' | i18n}}</ng-container>
+    </ng-template>
+<!-- </nz-form-item>
+</div> -->

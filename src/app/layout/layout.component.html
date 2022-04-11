@@ -1,0 +1,67 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <!-- <a href="https://ng.ant.design/" target="_blank"> -->
+      <!-- <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo"> -->
+      <h1>{{"i18n_appName" | i18n}}</h1>
+      <!-- </a> -->
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzTitle="" nzMatchRouter>
+        <i nz-icon nzType="form"></i>
+        <span><a routerLink="/license/apply">{{'i18n_menu.apply' | i18n}}</a></span>
+      </li>
+      <li nz-submenu nzOpen nzTitle="{{'i18n_menu.licenseMaga' | i18n}}" nzIcon="ordered-list">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/license/list">{{'i18n_menu.licenseList' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+        <div class="header-right">
+          <div class="setting">
+            <i18n-selector></i18n-selector>
+          </div>
+          <div class="user-info">
+            <ng-container *ngIf="isManager === 'true'; else manager">
+              <i nz-icon class='manager'>
+                <svg style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;">
+                  <path
+                    d="M652.8 608.448a52.48 52.48 0 0 1 80.128 0l27.306667 32.384 27.52-20.074667a52.48 52.48 0 0 1 70.570666 8.021334l2.346667 2.88c9.344 12.522667 12.565333 28.586667 8.746667 43.733333l-52.309334 206.741333H568.597333l-52.288-206.72a52.010667 52.010667 0 0 1 38.101334-63.210666 52.522667 52.522667 0 0 1 43.541333 8.533333l27.52 20.096z m-341.461333-10.453333c18.666667 11.669333 38.826667 21.184 60.16 28.181333L213.333333 810.666667h265.557334l17.024 64H213.333333a64 64 0 0 1-48.597333-105.642667l146.602667-171.050667z m381.504 52.266666l-57.941334 68.757334-59.072-43.114667 37.589334 148.629333H772.266667l37.589333-148.629333-59.029333 43.114667-57.962667-68.757334zM458.176 149.333333c117.824 0 213.333333 95.509333 213.333333 213.333334s-95.509333 213.333333-213.333333 213.333333-213.333333-95.509333-213.333333-213.333333 95.509333-213.333333 213.333333-213.333334z m0 64a149.333333 149.333333 0 1 0 0 298.666667 149.333333 149.333333 0 0 0 0-298.666667z">
+                  </path>
+                </svg>
+              </i>
+            </ng-container>
+            <ng-template #manager>
+              <i nz-icon nzType="user" nzTheme="outline"></i>
+            </ng-template>
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+              {{userName}}
+              <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item (click)="onLogOut()"><i nz-icon nzType="logout" nzTheme="outline"></i>
+                  {{'i18n_btn.logOut' | i18n}}</li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

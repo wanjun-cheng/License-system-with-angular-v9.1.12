@@ -1,0 +1,21 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="{{'i18n_license.approval' | i18n}}" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+  <form nz-form [formGroup]="approvalForm">
+    <nz-form-item>
+      <nz-form-label nzRequired>{{'i18n_license.state' | i18n}}</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+        <nz-radio-group formControlName="state" [(ngModel)]="stateValue" (ngModelChange)="handleStatueChange()">
+          <label nz-radio nzValue="{{LicenseStatus.SUCCESS}}">{{'i18n_btn.pass' | i18n}}</label>
+          <label nz-radio nzValue="{{LicenseStatus.FAIL}}">{{'i18n_btn.reject' | i18n}}</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>{{'i18n_license.approvalReason' | i18n}}</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+        <textarea nz-input formControlName="approvalComment" rows="2" [(ngModel)]="approvalCommentValue"
+          placeholder="{{'i18n_license.approvalReason' | i18n}}"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

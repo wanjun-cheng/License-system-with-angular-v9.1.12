@@ -1,0 +1,9 @@
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="i18nMenu" class="d-flex align-items-center justify-content-end tpc-i18n-selector">
+    {{newLang.label}}
+    <i nz-icon nzType="down" nzTheme="outline" class="ml-1"></i>
+</a>
+<nz-dropdown-menu #i18nMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item *ngFor="let option of langList" (click)="itemClickHandle(option)">{{option.label}}</li>
+  </ul>
+</nz-dropdown-menu>

@@ -1,0 +1,176 @@
+<form nz-form [formGroup]="licenseForm" (ngSubmit)="formHandle()">
+  <nz-divider nzText="{{'i18n_license.baseInfo' | i18n}}" nzOrientation="left"></nz-divider>
+
+  <div nz-row>
+    <div nz-col [nzSpan]="11">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.subject' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="15" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-select formControlName="subject" nzPlaceHolder="{{'i18n_license.subject' | i18n}}"
+            (ngModelChange)="handleSubjectChange($event)">
+            <nz-option *ngFor="let item of subjectList" [nzValue]="item" [nzLabel]="item"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.use' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="15" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-select formControlName="use" nzPlaceHolder="{{'i18n_license.use' | i18n}}">
+            <nz-option *ngFor="let item of purposeList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.notBefore' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="15" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-date-picker formControlName="notBefore" [nzDisabledDate]="disabledDate" nzFormat="yyyy/MM/dd">
+          </nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.permitDuration' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="11" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-select formControlName="permitDuration" nzPlaceHolder="{{'i18n_license.permitDuration' | i18n}}"
+            (ngModelChange)="handleDurationChange($event)">
+            <nz-option *ngFor="let item of durationList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4" *ngIf="showCustomDuration" [nzErrorTip]="validateNum">
+          <input type='text' nz-input formControlName="permitDays" placeholder="{{'i18n_unit.days' | i18n}}" />
+        </nz-form-control>
+        <ng-template #validateNum let-control>
+          <ng-container *ngIf="control.hasError('int')">
+            {{'i18n_message.formatValidate' | i18n}}</ng-container>
+          <ng-container *ngIf="control.hasError('required')">{{'i18n_valid.required' | i18n}}</ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">{{'i18n_license.info' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="15" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <textarea nz-input formControlName="info" rows="2" placeholder="{{'i18n_license.info' | i18n}}"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="11">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.holder' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="15" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <input type='text' nz-input formControlName="holder" placeholder="{{'i18n_license.holderPlaceholder' | i18n}}"
+            maxlength="240" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.equipmentDescription' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="11" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-select formControlName="equipmentDescription" nzPlaceHolder="{{'i18n_license.equipmentDescription' | i18n}}"
+            (ngModelChange)="handleEquipmentChange($event)" nzMode="multiple" nzShowArrow>
+            <nz-option *ngFor="let item of equipmentList" [nzValue]="item" [nzLabel]="item"></nz-option>
+            <nz-option nzValue="CUSTOM_EQUIPMENT_TYPE" nzLabel="{{'i18n_license.option.customEquipmenteType' | i18n}}"></nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4" *ngIf="showCustomEquipment" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <input type='text' nz-input formControlName="equipment" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.quantityLimit' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="11" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-select formControlName="quantityLimit" nzPlaceHolder="{{'i18n_license.quantityLimit' | i18n}}"
+            (ngModelChange)="handleNetChange($event)">
+            <nz-option *ngFor="let item of netNumList" [nzValue]="item.value" [nzLabel]="item.label | i18n"></nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4" *ngIf="showCustomNetNum" [nzErrorTip]="validateNum">
+          <input type='text' nz-input formControlName="netNums" placeholder="{{'i18n_unit.multiple' | i18n}}" />
+        </nz-form-control>
+        <ng-template #validateNum let-control>
+          <ng-container *ngIf="control.hasError('int')">
+            {{'i18n_message.formatValidate' | i18n}}</ng-container>
+          <ng-container *ngIf="control.hasError('required')">{{'i18n_valid.required' | i18n}}</ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>{{'i18n_license.sessionLimit' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="11" nzErrorTip="{{'i18n_valid.required' | i18n}}">
+          <nz-select formControlName="sessionLimit" nzPlaceHolder="{{'i18n_license.sessionLimit' | i18n}}"
+            (ngModelChange)="handleSessionChange($event)">
+            <nz-option *ngFor="let item of sessionLimitList" [nzValue]="item.value" [nzLabel]="item.label | i18n"></nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="4" *ngIf="showCustomSessionNum" [nzErrorTip]="validateNum">
+          <input type='text' nz-input formControlName="sessionNums" />
+        </nz-form-control>
+        <ng-template #validateNum let-control>
+          <ng-container *ngIf="control.hasError('int')">
+            {{'i18n_message.formatValidate' | i18n}}</ng-container>
+          <ng-container *ngIf="control.hasError('required')">{{'i18n_valid.required' | i18n}}</ng-container>
+        </ng-template>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">{{'i18n_license.controllLimit' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <nz-select formControlName="controlledName" nzPlaceHolder="{{'i18n_license.controllLimit' | i18n}}" 
+            nzMode="multiple" [nzMaxTagCount]="3">
+            <nz-option *ngFor="let item of controlledNameList" [nzValue]="item.name" [nzLabel]="item.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <nz-divider nzText="{{'i18n_license.netInfo' | i18n}}" nzOrientation="left"></nz-divider>
+
+  <div nz-row *ngFor="let item of addressList">
+    <div nz-col [nzSpan]="4" [nzOffset]="3">
+      <nz-form-item>
+        <nz-form-label [nzFor]="item.ip" nzRequired>{{'i18n_license.ip' | i18n}}</nz-form-label>
+        <nz-form-control [nzErrorTip]="combineIp">
+          <input type='text' nz-input [formControlName]="item.ip"
+            placeholder="{{'i18n_license.format' | i18n}}：127.0.0.1" />
+          <ng-template #combineIp let-control>
+            <ng-container *ngIf="control.hasError('ip')">
+              {{'i18n_license.ip' | i18n}}{{'i18n_message.formatValidate' | i18n}}</ng-container>
+            <ng-container *ngIf="control.hasError('required')">{{'i18n_valid.required' | i18n}}</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8" class="ml-10">
+      <nz-form-item>
+        <nz-form-label [nzFor]="item.mac" nzRequired>{{'i18n_license.mac' | i18n}}</nz-form-label>
+        <nz-form-control [nzErrorTip]="combineMac">
+          <input type='text' nz-input [formControlName]="item.mac" class="passenger-input"
+            placeholder="{{'i18n_license.format' | i18n}}：00:50:56:89:cd:6c" />
+          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeNet(item, $event)"></i>
+          <ng-template #combineMac let-control>
+            <ng-container *ngIf="control.hasError('mac')">
+              {{'i18n_license.mac' | i18n}}{{'i18n_message.formatValidate' | i18n}}</ng-container>
+            <ng-container *ngIf="control.hasError('required')">{{'i18n_valid.required' | i18n}}</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSpan]="4" [nzOffset]="3">
+      <button nz-button nzType="dashed" class="add-button add" (click)="addNet($event)">
+        <i nz-icon nzType="plus"></i>
+        {{'i18n_btn.add' | i18n}}
+      </button>
+    </div>
+  </div>
+
+  <div style="height:30px"></div>
+
+  <nz-form-item class="text-center">
+    <nz-form-control>
+      <button nz-button [nzType]="'primary'" [nzLoading]="isLoading">{{'i18n_btn.submit' | i18n}}</button>
+      <button nz-button (click)="resetForm($event)" class="ml-20">{{'i18n_btn.reset' | i18n}}</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

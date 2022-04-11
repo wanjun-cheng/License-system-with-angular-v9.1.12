@@ -1,0 +1,129 @@
+{
+  "i18n_appName": "通用网管部署登记系统",
+
+  "i18n_valid.required": "输入不能为空",
+  "i18n_valid.email": "邮箱格式不对",
+
+  "i18n_btn.login": "登 录",
+  "i18n_btn.logOut": "退出",
+  "i18n_btn.submit": "提 交",
+  "i18n_btn.reset": "重 置",
+  "i18n_btn.search": "搜 索",
+  "i18n_btn.return": "返 回",
+  "i18n_btn.operate": "操作",
+  "i18n_btn.pass": "通过",
+  "i18n_btn.reject": "驳回",
+  "i18n_btn.add": "新 增",
+  "i18n_btn.sure": "确 定",
+  "i18n_btn.cancel": "取 消",
+  "i18n_btn.download": "下载",
+  "i18n_btn.spread": "展开",
+  "i18n_btn.putAway": "收起",
+
+  "i18n_menu.apply": "新建申请",
+  "i18n_menu.licenseMaga": "登记管理",
+  "i18n_menu.licenseList": "登记列表",
+  
+  "i18n_license.baseInfo": "基础信息",
+  "i18n_license.state": "审批状态",
+  "i18n_license.email": "申请人",
+  "i18n_license.subject": " 产品名称",
+  "i18n_license.use": "用途",
+  "i18n_license.holder": "客户信息",
+  "i18n_license.holderPlaceholder": "客户(单位/项目)名称；个人使用者姓名",
+  "i18n_license.equipmentDescription": "所管设备类型",
+  "i18n_license.applyDate": "申请日期",
+  "i18n_license.notBefore": "许可开始日期",
+  "i18n_license.notAfter": "许可到期日期",
+  "i18n_license.notAfter1": "具体到期日期",
+  "i18n_license.permitDuration": "许可时长",
+  "i18n_license.quantityLimit": "等效网元数量限制",
+  "i18n_license.networkLimit": "网元数限制",
+  "i18n_license.sessionLimit": "会话数量限制",
+  "i18n_license.controllLimit": "受控功能授权",
+  "i18n_license.info": "备注",
+  "i18n_license.netInfo": "网管信息",
+  "i18n_license.ip": "IP地址",
+  "i18n_license.mac": "MAC地址",
+  "i18n_license.approver": "审批人",
+
+  "i18n_license.option.internalDev": "内部开发",
+  "i18n_license.option.laboratoryTest": "实验室测试",
+  "i18n_license.option.userTest": "用户现场测试",
+  "i18n_license.option.userTrial": "用户试用",
+  "i18n_license.option.userNetworkUse": "用户现网使用",
+
+  "i18n_license.option.aWeek": "一周",
+  "i18n_license.option.oneMonth": "1个月",
+  "i18n_license.option.twoMonths": "2个月",
+  "i18n_license.option.threeMonths": "3个月",
+  "i18n_license.option.sexMonths": "半年",
+  "i18n_license.option.oneYear": "一年",
+  "i18n_license.option.twoYears": "两年",
+  "i18n_license.option.threeYears": "三年",
+  "i18n_license.option.permanentDays": "永久",
+  "i18n_license.option.customDays": "自定义天数",
+
+  "i18n_license.option.netNum10": "10台以内",
+  "i18n_license.option.netNum50": "50台以内",
+  "i18n_license.option.netNum100": "100台以内",
+  "i18n_license.option.netNum500": "500台以内",
+  "i18n_license.option.netNumUnlimited": "不限制",
+  "i18n_license.option.customNetNum": "自定义台数",
+  
+  "i18n_license.option.5": "5",
+  "i18n_license.option.10": "10",
+  "i18n_license.option.50": "50",
+  "i18n_license.option.100": "100",
+  "i18n_license.option.unlimited": "不限制",
+  "i18n_license.option.custom": "自定义",
+
+  "i18n_license.option.licenseExpiration30": "即将到期",
+  "i18n_license.option.licenseExpiration1": "已到期",
+  "i18n_license.option.licensePermanent": "永久",
+  "i18n_license.option.customLicenseExpiration": "自定义日期",
+
+  "i18n_license.option.customEquipmenteType": "自定义类型",
+
+  "i18n_license.state.success": "通过",
+  "i18n_license.state.fail": "驳回",
+  "i18n_license.state.pending": "待审批",
+  
+  "i18n_license.approval": "审批",
+  "i18n_license.approvalReason": "审批留言",
+  "i18n_license.agree": "同意",
+
+  "i18n_license.detail": "部署登记详情",
+  "i18n_license.format": "格式",
+
+  "i18n_pagination.total": "总共", 
+  "i18n_pagination.item": "条", 
+
+  "i18n_message.emailSendValidate": "邮件已发送，请点击邮件中链接登录！",
+  "i18n_message.formatValidate": "格式不正确！",
+  "i18n_message.operationSuccess": "操作成功！",
+  "i18n_message.operationFailed": "操作失败！",
+  "i18n_message.applySuccess": "您的申请已经提交，上级审批后你会得到邮件通知。",
+  "i18n_message.approvalAgree": "申请已被批准，申请人会得到邮件通知",
+  "i18n_message.approvalFail": "申请已被拒绝，申请人会得到邮件通知",
+
+  "i18n_unit.days": "天",
+  "i18n_unit.multiple": "台",
+
+  
+  "i18n_btn": {
+    "login": "登 录",
+    "logOut": "退出",
+    "submit": "提 交",
+    "reset": "重 置"
+  },
+  "i18n_menu": {
+    "apply": "部署登记申请",
+    "licenseMaga": "部署登记管理",
+    "licenseList": "部署登记列表"
+  },
+  "i18n_valid":{
+    "required": "输入不能为空",
+    "email": "邮箱格式不对"
+  }
+}

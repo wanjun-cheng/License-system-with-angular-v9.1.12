@@ -1,0 +1,98 @@
+<div class='listWrap'>
+  <app-license-search (onSearch)="onSearch($event)" [isManager]="isManager"></app-license-search>
+  <div>
+    <nz-table [nzShowPagination]="false" [nzData]="listOfData" [nzLoading]="loading">
+      <thead>
+        <tr>
+          <th nzWidth="6%">{{'i18n_license.subject' | i18n}}</th>
+          <th nzWidth="6%">{{'i18n_license.state' | i18n}}</th>
+          <th nzWidth="6%">{{'i18n_license.holder' | i18n}}</th>
+          <th nzWidth="9%" *ngIf="isManager">{{'i18n_license.email' | i18n}}</th>
+          <th nzWidth="9%">{{'i18n_license.equipmentDescription' | i18n}}</th>
+          <th nzWidth="7%">{{'i18n_license.use' | i18n}}</th>
+          <th nzWidth="6%">{{'i18n_license.controllLimit' | i18n}}</th>
+          <th nzWidth="8%">{{'i18n_license.notBefore' | i18n}}</th>
+          <th nzWidth="8%">{{'i18n_license.notAfter' | i18n}}</th>
+          <th nzWidth="5%">{{'i18n_license.networkLimit' | i18n}}</th>
+          <th nzWidth="5%">{{'i18n_license.sessionLimit' | i18n}}</th>
+          <th nzWidth="7%">{{'i18n_license.applyDate' | i18n}}</th>
+          <th nzWidth="6%">{{'i18n_license.info' | i18n}}</th>
+          <th nzWidth="6%">{{'i18n_license.approvalReason' | i18n}}</th>
+          <th nzWidth="6%" nzRight>{{'i18n_btn.operate' | i18n}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listOfData">
+          <td nzBreakWord><a [routerLink]="['/license/detail', data.id]">{{ data.subject }}</a></td>
+          <td nzBreakWord [ngSwitch]="data.state">
+            <span class="pending"
+              *ngSwitchCase="LicenseStatus.NOT_APPROVED">{{'i18n_license.state.pending' | i18n}}</span>
+            <span class="fail" *ngSwitchCase="LicenseStatus.FAIL">{{'i18n_license.state.fail' | i18n}}</span>
+            <span class="success" *ngSwitchCase="LicenseStatus.SUCCESS">{{'i18n_license.state.success' | i18n}}</span>
+          </td>
+          <td nzBreakWord><span nz-popover nzPopoverContent="{{data.holder}}">{{ data.holder | ellipsis: 15 }}</span>
+          </td>
+          <td nzBreakWord *ngIf="isManager">{{ data.email }}</td>
+          <td nzBreakWord><span nz-popover
+              nzPopoverContent="{{data.equipmentDescription}}">{{ data.equipmentDescription | ellipsis: 15 }}</span>
+          </td>
+          <td nzBreakWord [ngSwitch]="data.use">
+            <span *ngSwitchCase="LicensePurpose.INTERNAL_DEV">{{'i18n_license.option.internalDev' | i18n}}</span>
+            <span *ngSwitchCase="LicensePurpose.LABORATORY_TEST">{{'i18n_license.option.laboratoryTest' | i18n}}</span>
+            <span *ngSwitchCase="LicensePurpose.USER_FIELD_TEST">{{'i18n_license.option.userTest' | i18n}}</span>
+            <span *ngSwitchCase="LicensePurpose.USER_TRIAL">{{'i18n_license.option.userTrial' | i18n}}</span>
+            <span
+              *ngSwitchCase="LicensePurpose.CURRENT_NETWORK_USE_">{{'i18n_license.option.userNetworkUse' | i18n}}</span>
+          </td>
+          <td nzBreakWord>
+            <span nz-popover
+              nzPopoverContent="{{data.controlledName && data.controlledName.join(',')}}">
+              {{ data.controlledName && data.controlledName.join(',') | ellipsis: 15 }}</span>
+          </td>
+          <td nzBreakWord>{{ data.notBefore | date:'yyyy/MM/dd' }}</td>
+          <td nzBreakWord>{{ data.notAfter | date:'yyyy/MM/dd' }}</td>
+          <td *ngIf="data.quantityLimit == NetworkLimit.NO_LIMIT; else netNumflag">
+            <span>{{ 'i18n_license.option.netNumUnlimited' | i18n }}</span>
+          </td>
+          <ng-template #netNumflag>
+            <td nzBreakWord>
+              <span>{{ data.quantityLimit }}</span>
+            </td>
+          </ng-template>
+
+          <td *ngIf="data.sessionLimit == SessionLimit.NO_LIMIT; else sessionNumflag">
+            <span>{{ 'i18n_license.option.unlimited' | i18n }}</span>
+          </td>
+          <ng-template #sessionNumflag>
+            <td nzBreakWord>
+              <span>{{ data.sessionLimit }}</span>
+            </td>
+          </ng-template>
+          <td nzBreakWord>{{ data.applyDate | date:'yyyy/MM/dd' }}</td>
+          <td nzBreakWord><span nz-popover nzPopoverContent="{{data.info}}">{{ data.info | ellipsis }}</span></td>
+          <td nzBreakWord>{{ data.approvalComment }}</td>
+          <td nzBreakWord nzRight>
+            <ng-container *ngIf="isManager">
+              <span *ngIf="data.state==LicenseStatus.NOT_APPROVED">
+                <a herf="#" (click)="handleApproval(data)"><span>{{'i18n_license.approval' | i18n}}</span></a>
+              </span>
+            </ng-container>
+            <span *ngIf="data.state==LicenseStatus.SUCCESS">
+              <a herf="#" (click)="handleDownload(data)"><span>{{'i18n_btn.download' | i18n}}</span></a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div class="float-r mt-20">
+      <nz-pagination nzShowSizeChanger [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+        [nzShowTotal]="totalTemplate" (nzPageIndexChange)="onPageIndexChange()" (nzPageSizeChange)="onPageSizeChange()">
+      </nz-pagination>
+      <ng-template #totalTemplate let-total>{{'i18n_pagination.total' | i18n}} {{ total }}
+        {{'i18n_pagination.item' | i18n}} </ng-template>
+    </div>
+  </div>
+
+  <app-license-approval (onOk)="handleOk()" (onCancel)="handleCancel()" [isVisible]="isVisible"
+    [approvalParams]='approvalParams'></app-license-approval>
+</div>

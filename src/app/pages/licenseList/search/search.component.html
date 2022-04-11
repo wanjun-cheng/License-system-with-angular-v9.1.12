@@ -1,0 +1,169 @@
+<form nz-form [nzLayout]="'vertical'" [formGroup]="licenseForm" (ngSubmit)="formSubmit()">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.subject' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-select formControlName="subject" nzPlaceHolder="{{'i18n_license.subject' | i18n}}"
+            (ngModelChange)="handleSubjectChange($event)">
+            <nz-option *ngFor="let item of subjectList" [nzValue]="item" [nzLabel]="item"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.use' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-select formControlName="use" nzPlaceHolder="{{'i18n_license.use' | i18n}}"
+            (ngModelChange)="handleChange($event)">
+            <nz-option *ngFor="let item of purposeList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+            </nz-option>
+            <!-- <ng-container *ngFor="let item of purposeList">
+              <nz-option *ngIf="item === LicensePurpose.INTERNAL_DEV" [nzValue]="item" [nzLabel]="'i18n_license.option.internalDev' | i18n"></nz-option>
+            </ng-container> -->
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.holder' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <input type='text' nz-input formControlName="holder" placeholder="{{'i18n_license.holder' | i18n}}" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.quantityLimit' | i18n}}</nz-form-label>
+        <div nz-col [nzSpan]="20">
+          <div nz-row>
+            <div nz-col [nzSpan]="12">
+              <nz-form-control>
+                <nz-select [(ngModel)]="quantityLimitNum" formControlName="quantityLimit"
+                  (ngModelChange)="handleChange($event)" nzPlaceHolder="{{'i18n_license.quantityLimit' | i18n}}">
+                  <nz-option *ngFor="let item of netNumList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+            <div nz-col [nzSpan]="10" *ngIf="quantityLimitNum == NetworkLimit.CUSTOM_NETWORK_LIMIT">
+              <nz-form-control>
+                <input type='text' nz-input formControlName="customQuantityLimit"
+                  placeholder="{{'i18n_unit.multiple' | i18n}}" />
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="6" [style.display]="isCollapse ? 'none' : 'block'">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.notAfter' | i18n}}</nz-form-label>
+        <div nz-col [nzSpan]="20">
+          <div nz-row>
+            <div nz-col [nzSpan]="12">
+              <nz-form-control>
+                <nz-select [(ngModel)]="permitValue" formControlName="notAfter" (ngModelChange)="handleChange($event)"
+                  nzPlaceHolder="{{'i18n_license.notAfter' | i18n}}">
+                  <nz-option *ngFor="let item of permitList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+            <div nz-col [nzSpan]="10" *ngIf="permitValue === ExpitationDate.CUSTOM_DATE">
+              <nz-form-control>
+                <nz-date-picker formControlName="customNotAfter" nzFormat="yyyy/MM/dd"></nz-date-picker>
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6" [style.display]="isCollapse ? 'none' : 'block'">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.sessionLimit' | i18n}}</nz-form-label>
+        <div nz-col [nzSpan]="20">
+          <div nz-row>
+            <div nz-col [nzSpan]="12">
+              <nz-form-control>
+                <nz-select [(ngModel)]="sessionLimitNum" formControlName="sessionLimit"
+                  (ngModelChange)="handleChange($event)" nzPlaceHolder="{{'i18n_license.sessionLimit' | i18n}}">
+                  <nz-option *ngFor="let item of sessionLimitList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </div>
+            <div nz-col [nzSpan]="10" *ngIf="sessionLimitNum == SessionLimit.CUSTOM">
+              <nz-form-control>
+                <input type='text' nz-input formControlName="customSessionLimit" />
+              </nz-form-control>
+            </div>
+          </div>
+        </div>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6" [style.display]="isCollapse ? 'none' : 'block'">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.state' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-select formControlName="state" nzPlaceHolder="{{'i18n_license.state' | i18n}}"
+            (ngModelChange)="handleChange($event)">
+            <nz-option *ngFor="let item of licenseStatusList" [nzValue]="item.value" [nzLabel]="item.label | i18n">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6" [style.display]="isCollapse ? 'none' : 'block'">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.controllLimit' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-select formControlName="controlledName" nzPlaceHolder="{{'i18n_license.controllLimit' | i18n}}" 
+            nzMode="multiple" [nzMaxTagCount]="3" (ngModelChange)="handleChange($event)">
+            <nz-option *ngFor="let item of controlledNameList" [nzValue]="item.name" [nzLabel]="item.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="6" *ngIf="isManager" [style.display]="isCollapse ? 'none' : 'block'">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.email' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-select formControlName="email" nzShowSearch nzPlaceHolder="{{'i18n_license.email' | i18n}}"
+            (ngModelChange)="handleChange($event)">
+            <nz-option *ngFor="let item of applyList" [nzValue]="item" [nzLabel]="item"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6" *ngIf="isManager" [style.display]="isCollapse ? 'none' : 'block'">
+      <nz-form-item>
+        <nz-form-label>{{'i18n_license.approver' | i18n}}</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-select formControlName="approver" nzShowSearch nzPlaceHolder="{{'i18n_license.approver' | i18n}}"
+            (ngModelChange)="handleChange($event)">
+            <nz-option *ngFor="let item of approverList" [nzValue]="item" [nzLabel]="item"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <nz-form-item class="text-center">
+    <nz-form-control>
+      <button nz-button [nzType]="'primary'">{{'i18n_btn.search' | i18n}}</button>
+      <button nz-button (click)="resetForm($event)" class="ml-20">{{'i18n_btn.reset' | i18n}}</button>
+      <a class="ml-10" (click)="toggleCollapse()">
+        {{ isCollapse ? ('i18n_btn.spread' | i18n) : ('i18n_btn.putAway' | i18n) }}
+        <i nz-icon [nzType]="isCollapse ? 'down' : 'up'"></i>
+      </a>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

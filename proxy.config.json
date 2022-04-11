@@ -1,0 +1,8 @@
+{
+    "/license": {
+      "target": "http://10.242.111.230:33333",
+      "secure": "false",
+      "changeOrigin": true
+    }
+  }
+  
